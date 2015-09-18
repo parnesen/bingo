@@ -1,4 +1,4 @@
-# bingo
+# Bingo!!
 
 A simple bingo board, optimized to look good in [AltspaceVR](http://altvr.com/)
 
