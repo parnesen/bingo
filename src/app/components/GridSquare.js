@@ -13,7 +13,7 @@ var Button = Bootstrap.Button;
 module.exports = React.createClass({
 
     getInitialState: function() {
-        return { selected: false };
+        return { selected: this.props.isCenterSquare };
     },
 
     squareToggled: function() {
@@ -25,7 +25,7 @@ module.exports = React.createClass({
         var style = this.state.selected ? "danger" : "primary";
 
         return (
-            <Button className="grid-square" bsStyle={style} onClick={this.squareToggled}>{this.props.name}</Button>
+            <Button className="grid-square" bsStyle={style} disabled={this.props.isCenterSquare} onClick={this.squareToggled}>{this.props.name}</Button>
         );
     }
 });
