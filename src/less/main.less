@@ -1,0 +1,31 @@
+@button-size: 120px;
+@margin: 20px;
+@grid-size: @margin + (( @button-size + @margin ) * 5);
+
+
+.btn {
+	border-radius: 10px;
+}
+
+.grid {
+	
+	display: flex; 
+	justify-content: space-around;
+	max-width: @grid-size ;
+	min-width: @grid-size ;
+	flex-wrap: wrap;
+	padding-left: @margin;
+	padding-right: @margin;
+	padding-bottom: @margin;
+	background-color: rgba(24, 24, 24, 0.3);
+}
+
+.grid-square {
+	border-radius: 10px;
+	min-width: @button-size;
+    max-width: @button-size;
+    max-height: @button-size;
+    min-height: @button-size;
+    margin-top: @margin;
+}
+
