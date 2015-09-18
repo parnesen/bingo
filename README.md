@@ -10,5 +10,5 @@ Started with [react-bootstrap-starter](https://www.npmjs.com/package/react-boots
 1. Install [Node](https://nodejs.org) if necessary
 2. Clone this repo
 3. In the repo directgory, run npm update
-4. If needed, run npm install -g gulp 
+4. Run npm install -g gulp if necessary
 5. Run gulp. This should build everything and then fire up your browser with the bingo board.
