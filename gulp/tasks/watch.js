@@ -9,5 +9,5 @@ var config = require('../config');
 
 gulp.task('watch', ['minify'], function() {
   gulp.watch(config.less.watch, ['less']);
-  gulp.watch(config.markup.src, ['markup']);
+  gulp.watch(config.markup.src, ['minify']);
 });

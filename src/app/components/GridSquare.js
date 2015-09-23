@@ -10,8 +10,9 @@ module.exports = React.createClass({
     },
 
     squareToggled: function() {
-        console.log("squareToggled")
-        this.setState({selected: this.props.isCenterSquare || !this.state.selected});
+        var isSelected = this.props.isCenterSquare || !this.state.selected;
+        this.setState({selected: isSelected});
+        this.props.squareSelected(this.props.squareId, isSelected);
     },
 
     render: function() {
