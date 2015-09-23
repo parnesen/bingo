@@ -9,17 +9,16 @@ module.exports = React.createClass({
         return { selected: this.props.isCenterSquare };
     },
 
-    squareToggled: function() {
-        var isSelected = this.props.isCenterSquare || !this.state.selected;
-        this.setState({selected: isSelected});
-        this.props.squareSelected(this.props.squareId, isSelected);
+    toggleSelected: function() {
+        this.props.toggleSelected(this.props.squareId);
     },
 
     render: function() {
-        var style = this.state.selected ? "danger" : "primary";
+        var style = this.props.selected ? "danger" : "primary";
+        var bingo = this.props.isCenterSquare && this.props.isBingo ? " bingo" : "";
 
         return (
-            <Button className="grid-square" bsStyle={style} disabled={false} onClick={this.squareToggled}>{this.props.name}</Button>
+            <Button className={"grid-square" + bingo } bsStyle={style} disabled={false} onClick={this.toggleSelected}>{this.props.name}</Button>
         );
     }
 });

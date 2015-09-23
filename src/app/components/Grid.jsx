@@ -8,17 +8,11 @@ var GridSquare = require('./GridSquare.js');
 
 var Grid = React.createClass({
 
-    selections: [  false, false, false, false, false,
-                        false, false, false, false, false,
-                        false, false, true,  false, false,
-                        false, false, false, false, false,
-                        false, false, false, false, false],
-
     detectRowBingo: function() {
         for(var ii = 0; ii <= 20; ii += 5 ) {
             var allSelected = true;
             for(var jj = ii; allSelected && jj < ii + 5; jj++) {
-                allSelected = allSelected && this.selections[jj];
+                allSelected = allSelected && this.state.selections[jj];
             }
             if(allSelected) { 
                 return true;
@@ -31,7 +25,7 @@ var Grid = React.createClass({
         for(var ii = 0; ii <= 4; ii++ ) {
             var allSelected = true;
             for(var jj = ii; allSelected && jj < 25; jj += 5) {
-                allSelected = allSelected && this.selections[jj];
+                allSelected = allSelected && this.state.selections[jj];
             }
             if(allSelected) { 
                 return true;
@@ -41,19 +35,43 @@ var Grid = React.createClass({
     },
 
     detectDiagonalBingo: function() {
-        return this.selections[0] && this.selections[6] && this.selections[12] && this.selections[18] && this.selections[24];
+        return    this.state.selections[0] && this.state.selections[6] && this.state.selections[12] && this.state.selections[18] && this.state.selections[24]
+               || this.state.selections[4] && this.state.selections[8] && this.state.selections[12] && this.state.selections[16] && this.state.selections[20];
     },
 
-    squareSelected: function(id, isSelected) {
-        console.log('squareSelected '  + id + ' ' + isSelected);
-        this.selections[id] = isSelected;
-        console.log(this.selections);
-        var isBingo = this.detectRowBingo() || this.detectColBingo() || this.detectDiagonalBingo();
+    detectBingo: function() {
+        var isBingo  = this.detectRowBingo() || this.detectColBingo() || this.detectDiagonalBingo();
         this.setState({isBingo: isBingo});
-        console.log("isBingo: " + isBingo);
+        console.log("isBingo: " + isBingo + " " + this.state.selections);
+        if(!this.hasPlayedSound && isBingo) {
+            this.hasPlayedSound = true;
+            new Audio('assets/win.wav').play();
+        }
+    },
+
+    toggleSquare: function(id) {
+        var selections = this.state.selections;
+        selections[id] = !selections[id];
+        this.setState({selections: selections});
+        console.log(selections);
+        this.detectBingo();
     },
 
     createSquares: function() {
+        console.log("createSquares: " + this.state.names.length);
+        var squares = [];
+        for(var id = 0; id < this.state.names.length; id++) {
+            var name = this.state.names[id];
+            var isCenter = id == 12;
+            if(isCenter && this.state.isBingo) {
+                name = "!!BINGO!!"
+            }
+            squares.push(<GridSquare name={name} selected={this.state.selections[id]} isBingo={this.state.isBingo} isCenterSquare={isCenter} key={id} squareId={id} toggleSelected={this.toggleSquare}/>);
+        }
+        return squares;
+    },
+
+    getInitialState: function() {
         var names =  _.shuffle([
             'the royal we',
             'motion to photon',
@@ -83,21 +101,22 @@ var Grid = React.createClass({
 
         names.splice(12, 0, "FREE");
 
-        var selectionFunc = this.squareSelected;
-        return names.map(function(name, id) {
-            return (<GridSquare name={name} isCenterSquare={id == 12} key={id} squareId={id} squareSelected={selectionFunc}/>);
-        });
-    },
+        return {    names: names,
+                    isBingo: false, 
+                    selections: [   false, false, false, false, false,
+                                    false, false, false, false, false,
+                                    false, false, true,  false, false,
+                                    false, false, false, false, false,
+                                    false, false, false, false, false],
 
-    getInitialState: function() {
-        this.squares = this.createSquares();
-        return { isBingo: false };
+                    hasPlayedSound: false,
+        };
     },
 
     render: function () {
         return (
                 <div className="grid">
-                    {this.squares}
+                    {this.createSquares()}
                 </div>
         );
     }

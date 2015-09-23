@@ -7,7 +7,8 @@
 var gulp   = require('gulp');
 var config = require('../config');
 
-gulp.task('watch', ['minify'], function() {
+gulp.task('watch', ['minify', 'assets'], function() {
   gulp.watch(config.less.watch, ['less']);
   gulp.watch(config.markup.src, ['minify']);
+  gulp.watch('./assets/**/*', ['assets']);
 });
