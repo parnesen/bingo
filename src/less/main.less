@@ -7,17 +7,33 @@
 	background-color: rgba(0, 0, 0, 0);
 }
 
+.title {
+	text-align: center;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+.instructions {
+	text-align: center;
+}
+
+.bingo-panel {
+	display: flex; 
+	flex-direction: column;
+	padding-left: @margin;
+	padding-right: @margin;
+	background-color: rgba(24, 24, 24, 0.3);
+	border-radius: @border-radius;
+}
+
 .grid {
 	display: flex; 
 	justify-content: space-around;
 	max-width: @grid-size ;
 	min-width: @grid-size ;
 	flex-wrap: wrap;
-	padding-left: @margin;
-	padding-right: @margin;
 	padding-bottom: @margin;
-	background-color: rgba(24, 24, 24, 0.3);
-	border-radius: @border-radius;
+	background-color: rgba(24, 24, 24, 0.0);
 }
 
 .grid-square {

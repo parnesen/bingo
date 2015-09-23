@@ -14,6 +14,11 @@
 
     // Render the main app react component into the document body.
     // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-    React.render(<Grid />, document.body);
-
+    React.render(
+        <div className="bingo-panel">
+            <h1 className="title text-primary">Carmack Bingo</h1>
+            <Grid />
+            <h3 className="instructions text-info">What makes a fun talk even more fun -- Bingo! As you hear John Carmack use the phrases on your bingo card, mark the tile. When you get 5 in a row or diagonal, you&#39;ve won your game of BINGO!</h3>
+        </div>
+        , document.body);
 })();
